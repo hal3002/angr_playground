@@ -3,7 +3,7 @@
 import angr
 
 def main():
-    #project = angr.Project("./argv_1", load_options={'auto_load_libs': False})
+   # Pretty much completely stolen from ais3_crackme/solve.py
    project = angr.Project("./argv_1")
 
    # Bytes * 8 (because bits)
