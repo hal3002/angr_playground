@@ -20,8 +20,8 @@ def scanf(state):
    pass
 
 def main():
-   project = angr.Project("./baby-re", load_options={'auto_load_libs': False})
-   init_state = project.factory.entry_state(remove_options={simuvex.s_options.LAZY_SOLVES})
+   project = angr.Project("./baby-re")
+   init_state = project.factory.entry_state()
 
    # Address of main to make calculating these next hooks easier
    main_address = 0x4025e7
