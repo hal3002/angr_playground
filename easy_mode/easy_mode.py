@@ -78,7 +78,11 @@ def solve(options):
       args.append(angr.claripy.BVS("argv%d" % i, options.input_length*8))
 
    project = angr.Project(options.executable)
-   init_state = project.factory.entry_state(args=args, remove_options={simuvex.o.LAZY_SOLVES})
+
+   if options.remove_lazy:
+      init_state = project.factory.entry_state(args=args, remove_options={simuvex.o.LAZY_SOLVES})
+   else:
+      init_state = project.factory.entry_state(args=args)
    
    # Constrain all of the arguments
    for arg in args[1:]:
@@ -145,6 +149,7 @@ if __name__ == '__main__':
    parser.add_option("--alpha-upper", dest="alpha_upper", action="store_true", default=False, help="Constrain solutions to alpha uppercase only.")
    parser.add_option("--alpha-numeric", dest="alpha_numeric", action="store_true", default=False, help="Constrain solutions to alpha, lowercase, and uppercase only.")
    parser.add_option("--printable", dest="printable", action="store_true", default=False, help="Constrain solutions to python's string.printable.")
+   parser.add_option("--remove-lazy", dest="remove_lazy", action="store_true", default=False, help="Remove LAZY solve option.")
 
    (options, args) = parser.parse_args()
 
